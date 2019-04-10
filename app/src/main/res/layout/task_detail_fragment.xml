@@ -53,17 +53,34 @@
     />
 
     <Button
+        android:id="@+id/detail_task_extra_button"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="60dp"
+        android:drawableStart="@android:drawable/ic_menu_camera"
+        android:text="Scan QR"
+    />
+
+    <Spinner
+        android:id="@+id/detail_task_extra_dropdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="105dp"
+        android:layout_marginStart="200dp"
+    />
+    <TextView
         android:id="@+id/detail_task_extra"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="60dp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+    />
 
     <Button
             android:id="@+id/detail_task_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="130dp"
+            android:layout_marginTop="200dp"
             android:text="@string/save"/>
 
 </FrameLayout>

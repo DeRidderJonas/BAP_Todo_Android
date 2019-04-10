@@ -9,9 +9,7 @@ import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
+import android.widget.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -27,6 +25,8 @@ class TaskDetailFragment : Fragment() {
     lateinit var checkBox: CheckBox;
     lateinit var deadlineButton: Button;
     lateinit var extraButton: Button;
+    lateinit var extraDropdown: Spinner;
+    lateinit var extraTextView: TextView;
 
     suspend fun loadData() = uiScope.launch {
         val activity: FragmentActivity? = getActivity();
@@ -40,6 +40,7 @@ class TaskDetailFragment : Fragment() {
             editText.setHint(task.title)
             checkBox.isChecked = task.done
             deadlineButton.setText(task.deadline)
+            extraTextView.setText(task.extra)
         }
     }
 
@@ -53,7 +54,9 @@ class TaskDetailFragment : Fragment() {
         checkBox= view.findViewById(R.id.detail_task_done);
         val save: Button = view.findViewById(R.id.detail_task_save);
         deadlineButton = view.findViewById(R.id.detail_task_deadline);
-        extraButton = view.findViewById(R.id.detail_task_extra);
+        extraButton = view.findViewById(R.id.detail_task_extra_button);
+        extraDropdown = view.findViewById(R.id.detail_task_extra_dropdown);
+        extraTextView = view.findViewById(R.id.detail_task_extra);
 
         checkBox.setOnClickListener(View.OnClickListener {
             if(it is CheckBox) {
@@ -88,6 +91,22 @@ class TaskDetailFragment : Fragment() {
                 dpd.show()
             }
         })
+
+        val extraDropdownAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, listOf("None", "Not important"))
+        extraDropdownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        extraDropdown.adapter = extraDropdownAdapter;
+        extraDropdown.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                task.extra = "empty"
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val item = parent?.selectedItem as String
+                task.extra = item
+                extraTextView.setText(task.extra)
+            }
+
+        }
 
         return view;
     }
