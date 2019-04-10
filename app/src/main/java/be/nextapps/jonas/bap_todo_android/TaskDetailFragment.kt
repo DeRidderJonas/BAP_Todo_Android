@@ -21,14 +21,23 @@ class TaskDetailFragment : Fragment() {
     var task: Task = Task(-1, "placeholder", false, "placeholder", "placeholder")
     val uiScope = CoroutineScope(Dispatchers.Main);
 
+    lateinit var editText: EditText;
+    lateinit var checkBox: CheckBox;
+    lateinit var deadlineButton: Button;
+    lateinit var extraButton: Button;
+
     suspend fun loadData() = uiScope.launch {
         val activity: FragmentActivity? = getActivity();
         val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         val currentTaskId : String = sharedPref!!.getString(getString(R.string.current_task_id), "0");
+        println("CurrentTaskId:"+currentTaskId)
 
         val result = taskViewModel.getById(currentTaskId.toInt());
-        if(result != null){
-            task = result as Task;
+        if(result != null) {
+            task = result;
+            editText.setHint(task.title)
+            println("done: ${task.done}")
+            checkBox.isChecked = task.done
         }
     }
 
@@ -38,21 +47,25 @@ class TaskDetailFragment : Fragment() {
         }
         val view = inflater.inflate(R.layout.task_detail_fragment, container, false);
 
-        val editText: EditText = view.findViewById(R.id.detail_task_title);
-        val checkBox: CheckBox = view.findViewById(R.id.detail_task_done);
+        editText= view.findViewById(R.id.detail_task_title);
+        checkBox= view.findViewById(R.id.detail_task_done);
         val save: Button = view.findViewById(R.id.detail_task_save);
-        val deadlineButton: Button = view.findViewById(R.id.detail_task_deadline);
-        val extraButton: Button = view.findViewById(R.id.detail_task_extra);
+        deadlineButton = view.findViewById(R.id.detail_task_deadline);
+        extraButton = view.findViewById(R.id.detail_task_extra);
 
         checkBox.setOnClickListener(View.OnClickListener {
             if(it is CheckBox) {
                 val checked : Boolean = it.isChecked;
+                task.done = checked;
             }
         })
 
         save.setOnClickListener(View.OnClickListener {
             if(it is Button) {
-
+                task.title = editText.text.toString();
+                uiScope.launch {
+                    taskViewModel.update(task)
+                }
             }
         })
 

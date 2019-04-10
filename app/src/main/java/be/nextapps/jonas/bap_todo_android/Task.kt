@@ -77,4 +77,10 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         delay(500);
         return task;
     }
+
+    suspend fun update(task: Task) {
+        scope.launch {
+            repository.update(task);
+        }
+    }
 }
