@@ -39,15 +39,16 @@
     <Button
         android:id="@+id/detail_task_deadline"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         android:layout_marginTop="70dp"
         android:layout_marginStart="60dp"
+        android:drawableStart="@android:drawable/ic_menu_my_calendar"
     />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="95dp"
+        android:layout_marginTop="100dp"
         android:text="Extra"
     />
 
@@ -55,7 +56,7 @@
         android:id="@+id/detail_task_extra"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="100dp"
         android:layout_marginStart="60dp"/>
 
     <Button
