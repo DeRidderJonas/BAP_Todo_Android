@@ -6,4 +6,6 @@
     <string name="title">Title</string>
     <string name="done">Done</string>
     <string name="save">Save</string>
+    <string name="alarm">alarm</string>
+    <string name="alarm_enabled">alarm_enabled</string>
 </resources>
