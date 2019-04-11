@@ -1,5 +1,6 @@
 package be.nextapps.jonas.bap_todo_android
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
@@ -25,14 +26,11 @@ class TasksFragment : Fragment() {
 
     //Recyclerview variables
     private lateinit var recyclerView: RecyclerView;
-    private lateinit var recyclerAdapter: RecyclerView.Adapter<*>;
-    private lateinit var recyclerManager: RecyclerView.LayoutManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.tasks_fragment, container, false);
 
         val create: Button = view.findViewById(R.id.create_task_button);
-        val refresh: Button = view.findViewById(R.id.refresh_tasks);
 
         create.setOnClickListener(View.OnClickListener {
             if(it is Button) {
@@ -50,20 +48,17 @@ class TasksFragment : Fragment() {
             }
         })
 
-        refresh.setOnClickListener(View.OnClickListener {
-            
-        })
-
-        recyclerManager = LinearLayoutManager(context);
-        recyclerAdapter = TasksAdapter(taskViewModel.allTasks)
+        val recyclerManager: RecyclerView.LayoutManager = LinearLayoutManager(context);
+        val recyclerAdapter = TasksAdapter()
         recyclerView = view.findViewById<RecyclerView>(R.id.tasks_recycler_view).apply {
             layoutManager = recyclerManager;
             adapter = recyclerAdapter
         }
 
-        println(taskViewModel.allTasks)
+        taskViewModel.allTasks.observe(this, Observer { tasks ->
+            tasks?.let { recyclerAdapter.setTasks(it) }
+        })
 
-        println("itemCount ${recyclerAdapter.itemCount}")
         return view;
     }
 
@@ -73,8 +68,9 @@ class TasksFragment : Fragment() {
     }
 }
 
-class TasksAdapter(private val tasks: List<Task>):
+class TasksAdapter():
     RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
+    private var tasks = emptyList<Task>();
     class TaskViewHolder(val view: View): RecyclerView.ViewHolder(view) {
 
         fun bind(task: Task){
@@ -110,5 +106,10 @@ class TasksAdapter(private val tasks: List<Task>):
 
     override fun getItemCount(): Int {
         return tasks.size
+    }
+
+    internal fun setTasks(tasks: List<Task>){
+        this.tasks = tasks;
+        notifyDataSetChanged()
     }
 }

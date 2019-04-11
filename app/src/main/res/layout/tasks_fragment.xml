@@ -11,14 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="@string/create_task"/>
-    <Button
-        android:id="@+id/refresh_tasks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/refresh"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="130dp"
-    />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/tasks_recycler_view"
         android:scrollbars="vertical"

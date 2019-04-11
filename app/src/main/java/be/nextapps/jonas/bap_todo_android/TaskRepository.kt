@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.support.annotation.WorkerThread
 
 class TaskRepository(private val taskDao: TaskDao){
-    val allTasks: List<Task> = taskDao.getAll();
+    val allTasks: LiveData<List<Task>> = taskDao.getAll();
 
     @WorkerThread
     suspend fun insert(task: Task): Long{
