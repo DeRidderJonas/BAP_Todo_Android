@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="be.nextapps.jonas.bap_todo.TasksFragment"
-    >
-
-    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/list_task_title"
-        android:textSize="40sp"/>
+>
 
     <Button
         android:id="@+id/create_task_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Create task" />
+        android:layout_marginTop="30dp"
+        android:text="@string/create_task"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/tasks_recycler_view"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+
+    />
 
 </FrameLayout>

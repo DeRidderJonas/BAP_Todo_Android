@@ -2,6 +2,7 @@ package be.nextapps.jonas.bap_todo_android
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -24,7 +25,7 @@ data class Task(
 interface TaskDao {
 
     @Query("SELECT * from task_table")
-    fun getAll(): List<Task>
+    fun getAll(): LiveData<List<Task>>
 
     @Query("select * from task_table where id = :id")
     fun getById(id: Int) : Task
@@ -41,7 +42,7 @@ interface TaskDao {
 
 class TaskViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: TaskRepository
-    val allTasks: List<Task>
+    val allTasks: LiveData<List<Task>>
     private var parentJob = Job()
     private val coroutineContext: CoroutineContext
         get() = parentJob + Dispatchers.Main
