@@ -74,8 +74,8 @@ class TasksAdapter():
     class TaskViewHolder(val view: View): RecyclerView.ViewHolder(view) {
 
         fun bind(task: Task){
-            println("binding view for task ${task}")
-            val displayString = "${task.title} \t ${task.done} \t ${task.id}"
+            val displayDone = if (task.done) "DONE" else "TODO";
+            val displayString = "${task.title} \t ($displayDone)"
             view.findViewById<TextView>(R.id.item_display_text).text = displayString;
             view.findViewById<Button>(R.id.item_button_set_active).setOnClickListener(View.OnClickListener {
                 val sharedPref = view.context?.getSharedPreferences(view.context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
