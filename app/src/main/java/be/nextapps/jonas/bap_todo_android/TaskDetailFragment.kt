@@ -53,6 +53,7 @@ class TaskDetailFragment : Fragment() {
         editText= view.findViewById(R.id.detail_task_title);
         checkBox= view.findViewById(R.id.detail_task_done);
         val save: Button = view.findViewById(R.id.detail_task_save);
+        val refresh: Button = view.findViewById(R.id.detail_task_refresh);
         deadlineButton = view.findViewById(R.id.detail_task_deadline);
         extraButton = view.findViewById(R.id.detail_task_extra_button);
         extraDropdown = view.findViewById(R.id.detail_task_extra_dropdown);
@@ -70,6 +71,14 @@ class TaskDetailFragment : Fragment() {
                 task.title = editText.text.toString();
                 uiScope.launch {
                     taskViewModel.update(task)
+                }
+            }
+        })
+
+        refresh.setOnClickListener(View.OnClickListener {
+            if(it is Button){
+                uiScope.launch {
+                    loadData()
                 }
             }
         })
