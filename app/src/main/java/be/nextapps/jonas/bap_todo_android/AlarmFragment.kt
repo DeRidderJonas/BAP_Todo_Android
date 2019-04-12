@@ -1,7 +1,9 @@
 package be.nextapps.jonas.bap_todo_android
 
+import android.annotation.SuppressLint
 import android.app.TimePickerDialog
 import android.content.Context
+import android.location.Location
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
@@ -10,13 +12,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.TextView
+import android.widget.Toast
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import java.util.*
 
 class AlarmFragment : Fragment() {
 
     lateinit var alarmButton: Button;
     lateinit var enabledCheckbox: CheckBox;
+    lateinit var locationButton: Button;
+    lateinit var locationText: TextView;
 
+    private lateinit var fusedLocationClient: FusedLocationProviderClient;
+
+    @SuppressLint("MissingPermission")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.alarm_fragment, container, false);
 
@@ -25,6 +36,9 @@ class AlarmFragment : Fragment() {
 
         alarmButton = view.findViewById(R.id.alarm_time)
         enabledCheckbox = view.findViewById(R.id.alarm_on)
+        locationButton = view.findViewById(R.id.location_button)
+        locationText = view.findViewById(R.id.location_text)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
 
         val currentAlarm: String = sharedPref!!.getString(getString(R.string.alarm), "none")
         alarmButton.setText(currentAlarm);
@@ -58,6 +72,22 @@ class AlarmFragment : Fragment() {
                     putString(getString(R.string.alarm_enabled), checked.toString());
                     apply();
                 }
+            }
+        })
+
+        locationButton.setOnClickListener(View.OnClickListener {
+            if(it is Button){
+                println("get location button pressed")
+                fusedLocationClient.lastLocation
+                    .addOnSuccessListener {
+                        location: Location? ->
+                        locationText.text = "lat: ${location?.latitude}, long: ${location?.longitude}"
+                        Toast.makeText(context, "lat: ${location?.latitude}, long: ${location?.longitude}", Toast.LENGTH_LONG).show()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(context, "getting location failed", Toast.LENGTH_LONG).show()
+                        println(it.message)
+                    }
             }
         })
 
