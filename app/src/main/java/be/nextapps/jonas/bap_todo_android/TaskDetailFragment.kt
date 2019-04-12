@@ -124,6 +124,7 @@ class TaskDetailFragment : Fragment() {
             if(it is Button){
                 val scanner = IntentIntegrator.forSupportFragment(this)
                 scanner.setBeepEnabled(false)
+                scanner.setOrientationLocked(false)
                 scanner.initiateScan()
             }
         })
