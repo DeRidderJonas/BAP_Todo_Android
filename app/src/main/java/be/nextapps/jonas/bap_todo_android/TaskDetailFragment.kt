@@ -1,8 +1,10 @@
 package be.nextapps.jonas.bap_todo_android
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
@@ -10,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -117,7 +120,33 @@ class TaskDetailFragment : Fragment() {
 
         }
 
+        extraButton.setOnClickListener(View.OnClickListener {
+            if(it is Button){
+                val scanner = IntentIntegrator.forSupportFragment(this)
+                scanner.setBeepEnabled(false)
+                scanner.initiateScan()
+            }
+        })
+
         return view;
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(resultCode == Activity.RESULT_OK){
+            val result =IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+            if(result != null){
+                if(result.contents == null){
+                    Toast.makeText(context, "Cancelled", Toast.LENGTH_LONG).show()
+                }else{
+                    task.extra = result.contents
+                    extraTextView.text = result.contents
+                }
+            }else{
+                super.onActivityResult(requestCode, resultCode, data)
+            }
+        }else{
+            Toast.makeText(context, "Scan cancelled", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
