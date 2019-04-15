@@ -10,4 +10,5 @@
     <string name="alarm_enabled">alarm_enabled</string>
 	<string name="refresh">Refresh</string>
     <string name="create_task">Create task</string>
+    <string name="url">url</string>
 </resources>
