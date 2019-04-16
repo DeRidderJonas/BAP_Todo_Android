@@ -31,6 +31,10 @@ class MainActivity : AppCompatActivity(), DownloadCallback<String> {
 
         networkFragment = NetworkFragment.getInstance(supportFragmentManager, url)
 
+        if(intent.getBooleanExtra("notification", false)){
+            viewpager_main.currentItem = 3
+        }
+
     }
 
     private fun startDownloading(){
