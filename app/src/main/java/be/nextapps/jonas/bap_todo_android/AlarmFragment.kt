@@ -76,6 +76,25 @@ class AlarmFragment : Fragment(){
                     putString(getString(R.string.alarm_enabled), checked.toString());
                     apply();
                 }
+
+                if(checked){
+                    val time =sharedPref.getString(getString(R.string.alarm), "");
+                    if(!time.isEmpty()){
+                        val hour = time.substring(0, time.indexOf(':')).toInt()
+                        val minutes = time.substring(time.indexOf(':')+1).toInt()
+
+                        val alarm = Date()
+                        alarm.hours = hour
+                        alarm.minutes = minutes
+                        alarm.seconds = 0
+                        val now = Date()
+                        val difference = alarm.time - now.time
+                        if (difference > 0){
+                            val mNotificationTime = Calendar.getInstance().timeInMillis + difference
+                            NotificationUtils().setNotification(mNotificationTime, activity)
+                        }
+                    }
+                }
             }
         })
 
