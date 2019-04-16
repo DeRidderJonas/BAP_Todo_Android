@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">Bap_todo_android</string>
+    <string name="app_name">BAP_Todo</string>
+    <string name="preference_file_key">be.nextapps.jonas.bap.todo.preference_file_key</string>
+    <string name="current_task_id">current_task_id</string>
+    <string name="task">task</string>
+    <string name="title">Title</string>
+    <string name="done">Done</string>
+    <string name="save">Save</string>
+    <string name="alarm">alarm</string>
+    <string name="alarm_enabled">alarm_enabled</string>
+	<string name="refresh">Refresh</string>
+    <string name="create_task">Create task</string>
+    <string name="url">url</string>
 </resources>

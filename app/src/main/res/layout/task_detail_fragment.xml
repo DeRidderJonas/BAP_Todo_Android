@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="@string/title"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/detail_task_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="@string/title"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/done" />
+
+    <CheckBox
+        android:id="@+id/detail_task_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="45dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:text="Deadline"/>
+
+    <Button
+        android:id="@+id/detail_task_deadline"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginStart="60dp"
+        android:drawableStart="@android:drawable/ic_menu_my_calendar"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Extra"
+    />
+
+    <Button
+        android:id="@+id/detail_task_extra_button"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="60dp"
+        android:drawableStart="@android:drawable/ic_menu_camera"
+        android:text="Scan QR"
+    />
+
+    <Spinner
+        android:id="@+id/detail_task_extra_dropdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="105dp"
+        android:layout_marginStart="200dp"
+    />
+    <TextView
+        android:id="@+id/detail_task_extra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+    />
+
+    <Button
+            android:id="@+id/detail_task_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="400dp"
+            android:text="@string/save"/>
+    <Button
+            android:id="@+id/detail_task_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="400dp"
+            android:text="@string/refresh"
+    />
+
+</FrameLayout>
